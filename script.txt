@@ -1,0 +1,3 @@
+python3 orbslam_jetbot_live.py Vocabulary/ORBvoc.txt JetBot960.yaml
+
+python3 orbslam_mono_tum.py Vocabulary/ORBvoc.txt TUM3.yaml rgbd_dataset_freiburg3_large_cabinet_validation
