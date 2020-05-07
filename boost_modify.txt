@@ -1,0 +1,25 @@
+boost::python::dict ORBSlamPython::getTrackedMappoints() const
+{
+    if (!system)
+    {
+        return boost::python::dict();
+    }
+    
+    // This is copied from the ORB_SLAM2 System.SaveTrajectoryKITTI function, with some changes to output a python tuple.
+    vector<ORB_SLAM2::MapPoint*> Mps = system->GetTrackedMapPoints();
+    
+    //boost::python::list map_points;
+    boost::python::dict map_points;
+    for(size_t i=0; i<Mps.size(); i++)    {
+        if(Mps[i] != NULL){
+            cv::Mat wp = Mps[i]->GetWorldPos();
+            long unsigned int mid = Mps[i]-> mnId;
+            map_points[int(mid)] = boost::python::make_tuple(
+                wp.at<float>(0,0),
+                wp.at<float>(1,0),
+                wp.at<float>(2,0));
+        }
+    }
+
+    return map_points;
+}
